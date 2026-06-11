@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Влад — таргет для студий лазерной эпиляции в СНГ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #0F172A;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
+        /* ── CTA BUTTON ── */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 36px;
+            background: #25D366;
+            color: #fff;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+        .btn-cta:hover { background: #1ebe5a; transform: translateY(-2px); }
+        .btn-cta svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+        .btn-cta-full { width: 100%; max-width: 420px; }
+
+        /* CTA wrapper — центрирует кнопку */
+        .section-cta {
+            padding: 40px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        /* на тёмных секциях */
+        .section-cta.dark-bg { padding: 44px 0 0; }
+
+        /* ── FLOATING BUTTON ── */
+        .float-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 24px;
+            z-index: 999;
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+        .float-wa.visible { opacity: 1; pointer-events: auto; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+        .float-wa svg { width: 28px; height: 28px; fill: #fff; }
+
+        /* ── HERO ── */
+        .s-hero {
+            background: #0B1120;
+            padding: 90px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .s-hero::before {
+            content: '';
+            position: absolute;
+            top: -180px; right: -180px;
+            width: 560px; height: 560px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        @media (max-width: 768px) { .s-hero { padding: 60px 0 60px; } }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 1024px) { .hero-grid { grid-template-columns: 1fr 340px; gap: 40px; } }
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-photo-wrap { order: -1; }
+        }
+
+        .hero-photo-wrap {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .hero-photo-wrap img {
+            width: 100%;
+            display: block;
+            border-radius: 24px;
+            object-fit: cover;
+        }
+        /* тёмный градиент снизу — плавный переход в фон */
+        .hero-photo-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 120px;
+            background: linear-gradient(to top, #0B1120, transparent);
+            border-radius: 0 0 24px 24px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(37,99,235,0.18);
+            color: #93C5FD;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 28px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.12;
+            color: #fff;
+            margin-bottom: 22px;
+        }
+        .hero-title span { color: #60A5FA; }
+        @media (max-width: 992px) { .hero-title { font-size: 38px; } }
+        @media (max-width: 600px) { .hero-title { font-size: 30px; } }
+
+        .hero-sub {
+            font-size: 17px;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 44px;
+        }
+        @media (max-width: 600px) { .hero-sub { font-size: 16px; } }
+
+        /* ── STATS BAR ── */
+        .s-stats { background: #2563EB; padding: 44px 0; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+
+        .stat-num {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 7px;
+        }
+        @media (max-width: 600px) { .stat-num { font-size: 28px; } }
+        .stat-label { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+        /* ── SECTION SHARED ── */
+        .section-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(37,99,235,0.1);
+            color: #2563EB;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .section-tag.light {
+            background: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.7);
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.18;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 768px) { .section-title { font-size: 28px; } }
+
+        .section-sub {
+            font-size: 17px;
+            color: #64748B;
+            max-width: 560px;
+            line-height: 1.65;
+            margin-bottom: 52px;
+        }
+
+        /* ── WHY ME ── */
+        .s-why { padding: 88px 0 48px; background: #F8FAFC; }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 640px) { .why-grid { grid-template-columns: 1fr; } }
+
+        .why-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 34px;
+            border: 1px solid #E2E8F0;
+            transition: box-shadow 0.2s;
+        }
+        .why-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+        .why-icon { font-size: 38px; margin-bottom: 18px; }
+        .why-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+        .why-card p { font-size: 15px; color: #64748B; line-height: 1.65; }
+
+        /* ── ROI MATH ── */
+        .s-roi { background: #0B1120; padding: 88px 0 48px; }
+
+        .s-roi .section-title { color: #fff; }
+        .s-roi .section-sub { color: rgba(255,255,255,0.55); }
+
+        .roi-funnel {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            align-items: center;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+        @media (max-width: 900px) {
+            .roi-funnel { grid-template-columns: 1fr; gap: 0; }
+            .roi-arrow { transform: rotate(90deg); }
+        }
+
+        .roi-step {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+        .roi-step-icon { font-size: 32px; margin-bottom: 12px; }
+        .roi-step-val {
+            font-size: 28px;
+            font-weight: 900;
+            color: #60A5FA;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .roi-step-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.4;
+        }
+        .roi-step-sub {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 4px;
+        }
+
+        .roi-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 28px;
+            padding: 0 4px;
+        }
+        @media (max-width: 900px) {
+            .roi-arrow { padding: 8px 0; font-size: 22px; }
+        }
+
+        .roi-result {
+            background: linear-gradient(135deg, #1E3A8A, #2563EB);
+            border-radius: 18px;
+            padding: 36px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+        @media (max-width: 640px) { .roi-result { grid-template-columns: 1fr; gap: 20px; } }
+
+        .roi-result-val {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        @media (max-width: 768px) { .roi-result-val { font-size: 28px; } }
+        .roi-result-label { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.4; }
+
+        .roi-note {
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 16px;
+        }
+
+        /* ── CASES ── */
+        .s-cases { padding: 88px 0 48px; background: #fff; }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        @media (max-width: 992px) { .cases-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) { .cases-grid { grid-template-columns: 1fr; } }
+
+        .case-card {
+            border-radius: 18px;
+            padding: 28px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+        }
+        .case-card.dark { background: #0B1120; border-color: #0B1120; }
+        .case-card.blue-light { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); border-color: #BFDBFE; }
+
+        .case-city { font-size: 22px; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
+        .case-card.dark .case-city { color: #fff; }
+        .case-card.blue-light .case-city { color: #1E40AF; }
+
+        .case-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 22px;
+            background: rgba(37,99,235,0.1);
+            color: #2563EB;
+        }
+        .case-card.dark .case-badge { background: rgba(96,165,250,0.15); color: #93C5FD; }
+        .case-card.blue-light .case-badge { background: rgba(30,64,175,0.12); color: #1E40AF; }
+
+        .case-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+
+        .metric-val { font-size: 22px; font-weight: 800; color: #0F172A; line-height: 1; margin-bottom: 3px; }
+        .case-card.dark .metric-val { color: #fff; }
+        .case-card.blue-light .metric-val { color: #1E3A8A; }
+        .metric-label { font-size: 12px; color: #94A3B8; }
+
+        .case-story {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #64748B;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 16px;
+        }
+        .case-card.dark .case-story { color: rgba(255,255,255,0.5); border-top-color: rgba(255,255,255,0.08); }
+        .case-card.blue-light .case-story { border-top-color: #BFDBFE; color: #3B5080; }
+
+        .other-city-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #BFDBFE;
+            font-size: 14px;
+        }
+        .other-city-row:last-child { border-bottom: none; }
+        .other-city-name { font-weight: 700; color: #1E40AF; }
+        .other-city-stats { color: #3B5080; font-size: 13px; }
+
+        /* ── HOW IT WORKS ── */
+        .s-how { padding: 88px 0 48px; background: #F8FAFC; }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+        .step { background: #fff; border-radius: 18px; padding: 30px 24px; border: 1px solid #E2E8F0; text-align: center; }
+        .step-num {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: #2563EB;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+        }
+        .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+        .step p { font-size: 14px; color: #64748B; line-height: 1.6; }
+
+        /* ── GUARANTEE ── */
+        .s-guarantee { background: #2563EB; padding: 80px 0 44px; }
+
+        .guarantee-inner { display: flex; gap: 48px; align-items: center; }
+        @media (max-width: 768px) { .guarantee-inner { flex-direction: column; text-align: center; gap: 24px; } }
+
+        .guarantee-icon { font-size: 72px; flex-shrink: 0; }
+        .guarantee-title { font-size: 34px; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.2; }
+        @media (max-width: 600px) { .guarantee-title { font-size: 24px; } }
+        .guarantee-text { font-size: 17px; color: rgba(255,255,255,0.75); line-height: 1.65; }
+
+        /* CTA inside blue section */
+        .section-cta.on-blue { justify-content: flex-start; }
+        @media (max-width: 768px) { .section-cta.on-blue { justify-content: center; } }
+
+        /* ── FAQ ── */
+        .s-faq { padding: 88px 0 48px; background: #fff; }
+        .faq-list { max-width: 760px; }
+
+        .spoiler { border-bottom: 1px solid #E2E8F0; }
+        .spoiler-hd {
+            padding: 22px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #0F172A;
+            gap: 16px;
+            user-select: none;
+        }
+        .spoiler-icon {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: #2563EB;
+            font-size: 18px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s, background 0.2s;
+        }
+        .spoiler.open .spoiler-icon { transform: rotate(45deg); background: #2563EB; color: #fff; }
+        .spoiler-body { display: none; padding: 0 0 22px; font-size: 15px; line-height: 1.7; color: #64748B; }
+        .spoiler.open .spoiler-body { display: block; }
+
+        /* ── FINAL CTA ── */
+        .s-cta { background: #0B1120; padding: 90px 0; text-align: center; }
+
+        .cta-title { font-size: 44px; font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.15; }
+        @media (max-width: 600px) { .cta-title { font-size: 28px; } }
+        .cta-sub { font-size: 17px; color: rgba(255,255,255,0.55); margin: 0 auto 44px; max-width: 480px; line-height: 1.65; }
+        .cta-center { display: flex; justify-content: center; }
+
+        /* ── FOOTER ── */
+        .footer { background: #060C18; padding: 24px 0; text-align: center; }
+        .footer p { font-size: 13px; color: rgba(255,255,255,0.25); line-height: 1.6; }
+
+        /* ── STATS CTA STRIP ── */
+        .stats-cta-strip {
+            background: #1D4ED8;
+            padding: 28px 0;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ FLOATING WHATSAPP ═══ -->
+<a href="https://wa.me/НОМЕР" class="float-wa" id="floatWa" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ═══ HERO ═══ -->
+<section class="s-hero">
+    <div class="container">
+        <div class="hero-grid">
+        <div class="hero-left">
+        <div class="hero-label">Таргетолог · Лазерная эпиляция · СНГ</div>
+        <h1 class="hero-title">
+            Привожу клиентов в студии<br>лазерной эпиляции через<br><span>Instagram и Facebook</span>
+        </h1>
+        <p class="hero-sub">
+            Работаю только в этой нише — 4+ года, все города Казахстана и Узбекистана.
+            Не трачу бюджет на тесты: запускаю связки, которые уже принесли 140 000+ лидов.
+        </p>
+        <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Написать в WhatsApp
+        </a>
+        </div><!-- /hero-left -->
+        <div class="hero-photo-wrap">
+            <img src="photo.jpg" alt="Влад — таргетолог">
+        </div>
+        </div><!-- /hero-grid -->
+    </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="s-stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div>
+                <div class="stat-num">140 000+</div>
+                <div class="stat-label">лидов привлечено за всё время</div>
+            </div>
+            <div>
+                <div class="stat-num">$300K+</div>
+                <div class="stat-label">рекламного бюджета под управлением</div>
+            </div>
+            <div>
+                <div class="stat-num">от $0.59</div>
+                <div class="stat-label">минимальная цена за лид</div>
+            </div>
+            <div>
+                <div class="stat-num">4+ года</div>
+                <div class="stat-label">только в нише лазерной эпиляции</div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="stats-cta-strip">
+    <a href="https://wa.me/НОМЕР" class="btn-cta">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Написать в WhatsApp
+    </a>
+</div>
+
+<!-- ═══ WHY ME ═══ -->
+<section class="s-why">
+    <div class="container">
+        <div class="section-tag">Почему я</div>
+        <h2 class="section-title">Не универсальный таргетолог.<br>Специалист по одной нише.</h2>
+        <p class="section-sub">Пока другие тратят 2–3 месяца на «тестирование», я запускаю с первого дня — потому что уже знаю что работает.</p>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">🎯</div>
+                <h3>Только лазерная эпиляция и косметология</h3>
+                <p>4+ лет я работаю исключительно с этой нишей в Казахстане и Узбекистане. Знаю, какие акции бьют в цель, какой прайс ставить в рекламе и как превратить лид в реальную запись.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">⚡</div>
+                <h3>Запуск без тестового периода</h3>
+                <p>У меня уже есть проверенные связки по 8+ городам. Я не трачу твой бюджет на поиск «что сработает» — берём готовое и запускаем с первого дня.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">📊</div>
+                <h3>Конверсия из лида в запись 20–30%</h3>
+                <p>Во всех проектах средняя конверсия из обращения в реальную запись — от 20 до 30%. Это результат точной аудитории, правильного оффера и понимания психологии клиента в нише.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🛡️</div>
+                <h3>Гарантия возврата денег</h3>
+                <p>Если с рекламы не придёт ни одного лида — возвращаю оплату полностью. Без споров и условий. Уверен в результате, потому что знаю эту нишу изнутри.</p>
+            </div>
+        </div>
+        <div class="section-cta">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ROI MATH ═══ -->
+<section class="s-roi">
+    <div class="container">
+        <div class="section-tag light">Математика</div>
+        <h2 class="section-title">Что даёт $300 рекламного бюджета в месяц</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.5)">Реальные цифры из кейсов — не теория, не прогноз</p>
+
+        <div class="roi-funnel">
+            <div class="roi-step">
+                <div class="roi-step-icon">💰</div>
+                <div class="roi-step-val">$300</div>
+                <div class="roi-step-label">рекламный<br>бюджет в месяц</div>
+            </div>
+            <div class="roi-arrow">→</div>
+            <div class="roi-step">
+                <div class="roi-step-icon">💬</div>
+                <div class="roi-step-val">150</div>
+                <div class="roi-step-label">обращений<br>в директ / WhatsApp</div>
+                <div class="roi-step-sub">~$2 за лид</div>
+            </div>
+            <div class="roi-arrow">→</div>
+            <div class="roi-step">
+                <div class="roi-step-icon">📅</div>
+                <div class="roi-step-val">30–45</div>
+                <div class="roi-step-label">реальных<br>записей</div>
+                <div class="roi-step-sub">конверсия 20–30%, запись $4–8</div>
+            </div>
+            <div class="roi-arrow">→</div>
+            <div class="roi-step">
+                <div class="roi-step-icon">✂️</div>
+                <div class="roi-step-val">$15</div>
+                <div class="roi-step-label">стоимость<br>нового клиента</div>
+                <div class="roi-step-sub">включая оплату таргета</div>
+            </div>
+        </div>
+
+        <div class="roi-result">
+            <div>
+                <div class="roi-result-val">$30–45</div>
+                <div class="roi-result-label">средний чек<br>первого визита</div>
+            </div>
+            <div>
+                <div class="roi-result-val">x2–3 ROI</div>
+                <div class="roi-result-label">уже на первом посещении<br>без учёта LTV</div>
+            </div>
+            <div>
+                <div class="roi-result-val">абонемент</div>
+                <div class="roi-result-label">клиент возвращается<br>на 6–10 сеансов</div>
+            </div>
+        </div>
+        <p class="roi-note">* расчёт на основе средних показателей по кейсам в Казахстане и Узбекистане</p>
+
+        <div class="section-cta dark-bg">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CASES ═══ -->
+<section class="s-cases">
+    <div class="container">
+        <div class="section-tag">Кейсы</div>
+        <h2 class="section-title">Реальные цифры из рекламных кабинетов</h2>
+        <p class="section-sub">Казахстан, Узбекистан, Кыргызстан — везде одна задача: максимум записей по минимальной цене</p>
+
+        <div class="cases-grid">
+            <div class="case-card dark">
+                <div class="case-city">Астана</div>
+                <span class="case-badge">★ Флагманский кейс</span>
+                <div class="case-metrics">
+                    <div><div class="metric-val">15 103</div><div class="metric-label">лидов</div></div>
+                    <div><div class="metric-val">$2.99</div><div class="metric-label">цена лида</div></div>
+                    <div><div class="metric-val">$45 207</div><div class="metric-label">бюджет</div></div>
+                    <div><div class="metric-val">4 года</div><div class="metric-label">сотрудничество</div></div>
+                </div>
+                <p class="case-story">Клиент вырос с 1 точки до 7 студий в Астане и продал 2 городские франшизы. Бюджет в пике — $300/день.</p>
+            </div>
+
+            <div class="case-card">
+                <div class="case-city">Алматы</div>
+                <span class="case-badge">Казахстан</span>
+                <div class="case-metrics">
+                    <div><div class="metric-val">30 595</div><div class="metric-label">лидов</div></div>
+                    <div><div class="metric-val">$3.33</div><div class="metric-label">цена лида</div></div>
+                    <div><div class="metric-val">$102 028</div><div class="metric-label">бюджет</div></div>
+                    <div><div class="metric-val">стабильный KPI</div><div class="metric-label">месяц к месяцу</div></div>
+                </div>
+                <p class="case-story">Выкупали весь аукцион при большом бюджете — удерживали KPI по цене лида на самом конкурентном рынке Казахстана.</p>
+            </div>
+
+            <div class="case-card">
+                <div class="case-city">Бишкек</div>
+                <span class="case-badge">Кыргызстан</span>
+                <div class="case-metrics">
+                    <div><div class="metric-val">38 206</div><div class="metric-label">лидов</div></div>
+                    <div><div class="metric-val">$1.65</div><div class="metric-label">цена лида</div></div>
+                    <div><div class="metric-val">$62 949</div><div class="metric-label">бюджет</div></div>
+                    <div><div class="metric-val">новый рынок</div><div class="metric-label">первый запуск</div></div>
+                </div>
+                <p class="case-story">Первый выход на новый рынок — быстро нашли рабочую связку. Лид вышел дёшево с первого месяца.</p>
+            </div>
+
+            <div class="case-card">
+                <div class="case-city">Самарканд</div>
+                <span class="case-badge">Узбекистан</span>
+                <div class="case-metrics">
+                    <div><div class="metric-val">18 606</div><div class="metric-label">лидов</div></div>
+                    <div><div class="metric-val">$1.35</div><div class="metric-label">цена лида</div></div>
+                    <div><div class="metric-val">$5–7</div><div class="metric-label">цена записи</div></div>
+                    <div><div class="metric-val">до $13K/мес</div><div class="metric-label">выручка клиента</div></div>
+                </div>
+                <p class="case-story">Выручка студии выросла до $8 000–13 000 в месяц. Запись обходилась всего в $5–7.</p>
+            </div>
+
+            <div class="case-card">
+                <div class="case-city">Шымкент</div>
+                <span class="case-badge">Казахстан</span>
+                <div class="case-metrics">
+                    <div><div class="metric-val">9 785</div><div class="metric-label">лидов</div></div>
+                    <div><div class="metric-val">$2.21</div><div class="metric-label">цена лида</div></div>
+                    <div><div class="metric-val">$21 665</div><div class="metric-label">бюджет</div></div>
+                </div>
+                <p class="case-story">Стабильный поток обращений с удержанием цены лида в рамках KPI на протяжении всего периода.</p>
+            </div>
+
+            <div class="case-card blue-light">
+                <div class="case-city">Ещё 3 города</div>
+                <span class="case-badge">КЗ + УЗ</span>
+                <div style="margin-bottom: 16px;">
+                    <div class="other-city-row">
+                        <span class="other-city-name">Фергана</span>
+                        <span class="other-city-stats">7 134 лида · $1.27/лид</span>
+                    </div>
+                    <div class="other-city-row">
+                        <span class="other-city-name">Туркестан</span>
+                        <span class="other-city-stats">12 473 лида · $2.41/лид</span>
+                    </div>
+                    <div class="other-city-row">
+                        <span class="other-city-name">Уральск</span>
+                        <span class="other-city-stats">10 458 лидов · $2.56/лид</span>
+                    </div>
+                </div>
+                <p class="case-story">И десятки других городов Казахстана и Узбекистана — работал во всех крупных регионах.</p>
+            </div>
+        </div>
+
+        <div class="section-cta">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="s-how">
+    <div class="container">
+        <div class="section-tag">Процесс</div>
+        <h2 class="section-title">Как мы работаем</h2>
+        <p class="section-sub">Без долгих согласований и тестов — запускаем быстро и по делу</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Созвон</h3>
+                <p>Разбираю твою студию: город, конкуренты, текущий прайс, что уже пробовали</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Стратегия</h3>
+                <p>Подбираю акцию и оффер, которые уже сработали в похожих городах</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Запуск</h3>
+                <p>Настраиваю кампанию в Meta Ads. Первые лиды — уже в первые дни после старта</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h3>Масштаб</h3>
+                <p>Слежу за ценой лида, масштабирую рабочее, отключаю слабое, держу KPI</p>
+            </div>
+        </div>
+        <div class="section-cta">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ GUARANTEE ═══ -->
+<section class="s-guarantee">
+    <div class="container">
+        <div class="guarantee-inner">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h2 class="guarantee-title">Нет лидов — возвращаю деньги</h2>
+                <p class="guarantee-text">
+                    Если с рекламы не придёт ни одного обращения — я полностью возвращаю оплату своей работы.
+                    Это не маркетинговый ход: я уверен в результате, потому что 4 года работаю только в этой нише
+                    и знаю, что именно работает.
+                </p>
+                <div class="section-cta on-blue" style="padding-top: 28px;">
+                    <a href="https://wa.me/НОМЕР" class="btn-cta">
+                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Написать в WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="s-faq">
+    <div class="container">
+        <div class="section-tag">Вопросы</div>
+        <h2 class="section-title" style="margin-bottom: 44px;">Частые вопросы</h2>
+
+        <div class="faq-list">
+            <div class="spoiler">
+                <div class="spoiler-hd" onclick="toggleS(this)">
+                    Я только открываюсь — подойдёт ли мне таргет?
+                    <span class="spoiler-icon">+</span>
+                </div>
+                <div class="spoiler-body">Да. У меня есть опыт запуска для новых студий — включая первый выход на рынки Бишкека и других городов с нуля. Знаю, как быстро набрать первых клиентов даже без базы.</div>
+            </div>
+            <div class="spoiler">
+                <div class="spoiler-hd" onclick="toggleS(this)">
+                    Сколько лидов можно ожидать в месяц?
+                    <span class="spoiler-icon">+</span>
+                </div>
+                <div class="spoiler-body">Зависит от города и дневного бюджета. По моим кейсам — от 300 до 3 000+ обращений в месяц. Из них 20–30% конвертируются в реальные записи при нормальной работе администратора.</div>
+            </div>
+            <div class="spoiler">
+                <div class="spoiler-hd" onclick="toggleS(this)">
+                    Какой минимальный рекламный бюджет нужен?
+                    <span class="spoiler-icon">+</span>
+                </div>
+                <div class="spoiler-body">Для старта хватает $5–10 в день. Этого достаточно чтобы получить первые обращения и убедиться в результате. Дальше масштабируемся по мере роста выручки.</div>
+            </div>
+            <div class="spoiler">
+                <div class="spoiler-hd" onclick="toggleS(this)">
+                    Нужен ли у меня Instagram или Facebook аккаунт?
+                    <span class="spoiler-icon">+</span>
+                </div>
+                <div class="spoiler-body">Желательно. Если аккаунт слабый — дам конкретные рекомендации что улучшить, чтобы реклама давала лучший результат. Аккаунт работает как витрина: чем лучше он выглядит, тем дешевле лид.</div>
+            </div>
+            <div class="spoiler">
+                <div class="spoiler-hd" onclick="toggleS(this)">
+                    В чём твоё главное преимущество перед другими таргетологами?
+                    <span class="spoiler-icon">+</span>
+                </div>
+                <div class="spoiler-body">Я работаю только в одной нише. Обычный таргетолог будет тестировать аудитории и офферы 2–3 месяца за твой счёт. Я запускаю связки, которые уже принесли 140 000+ лидов — без этапа «проверим, что сработает».</div>
+            </div>
+        </div>
+
+        <div class="section-cta">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="s-cta">
+    <div class="container">
+        <h2 class="cta-title">Готов обсудить твою студию?</h2>
+        <p class="cta-sub">Напиши в WhatsApp — расскажу, что сработает конкретно в твоём городе</p>
+        <div class="cta-center">
+            <a href="https://wa.me/НОМЕР" class="btn-cta btn-cta-full">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="container">
+        <p>Влад — таргетолог для студий лазерной эпиляции в СНГ</p>
+    </div>
+</footer>
+
+<script>
+    // FAQ accordion
+    function toggleS(hd) {
+        var sp = hd.parentElement;
+        var wasOpen = sp.classList.contains('open');
+        document.querySelectorAll('.spoiler').forEach(function(s) { s.classList.remove('open'); });
+        if (!wasOpen) sp.classList.add('open');
+    }
+
+    // Floating WhatsApp button — появляется после прокрутки на 400px
+    var floatWa = document.getElementById('floatWa');
+    window.addEventListener('scroll', function() {
+        floatWa.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+</script>
+
+</body>
+</html>
