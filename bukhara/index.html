@@ -10,10 +10,18 @@
 <meta property="og:image" content="img/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap">
+<script>
+// 11.11: A/B латиница vs кириллица — половина посетителей видит одну версию, выбор запоминается
+(function(){var v=(location.search.match(/[?&]v=(lat|cyr)/)||[])[1];
+ try{v=v||localStorage.getItem('lv');}catch(e){}
+ v=v||(Math.random()<0.5?'lat':'cyr');
+ try{localStorage.setItem('lv',v);}catch(e){}
+ document.documentElement.className='v-'+v;window.LV=v;})();
+</script>
 <!-- Meta Pixel: Lalaser Buxoro сайт -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1494564102517388');fbq('track','PageView');
+fbq('init','1494564102517388');fbq('track','PageView');fbq('trackCustom','Visit_'+window.LV);
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1494564102517388&ev=PageView&noscript=1" alt=""></noscript>
 <style>
@@ -60,11 +68,12 @@ footer a{color:var(--muted)}
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(251,247,249,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);
   padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .sticky .btn{max-width:560px;margin:0 auto}
+.v-lat .cyr,.v-cyr .lat{display:none!important}
 @media (prefers-reduced-motion:reduce){.btn:active{transform:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap lat">
   <header><div class="logo">LALASER <span>LAND</span></div><div class="city">Buxoro</div></header>
 
   <div class="hero">
@@ -119,19 +128,94 @@ footer a{color:var(--muted)}
     </a>
   </section>
 
+  <section>
+    <h2>Manzil</h2>
+    <div class="item"><i>📍</i><div><b>Buxoro sh., Mustaqillik, 44A</b><span>Lalaser Land</span></div></div>
+  </section>
+
 </div>
 
-<div class="sticky">
+<div class="sticky lat">
   <a class="btn tg" href="https://t.me/Lalaser_land_bukhara?text=Assalomu%20alaykum%21%20To%E2%80%98liq%20bikini%20%2B%20qo%E2%80%98ltiq%20osti%20aksiyasi%20%28250%20000%20so%E2%80%98m%29%20bo%E2%80%98yicha%20yozilmoqchiman" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.6 1.2 12c-1.1-.3-1.1-1.1.2-1.6l19.1-7.4c.9-.3 1.7.2 1.4 1.3z"/></svg>
     Telegram orqali yozilish
   </a>
 </div>
 
+
+<div class="wrap cyr">
+  <header><div class="logo">LALASER <span>LAND</span></div><div class="city">Бухоро</div></header>
+
+  <div class="hero">
+    <img src="img/hero.jpg" alt="Лазер эпиляция муолажаси">
+    <div class="hero-text">
+      <span class="tag">Акция</span>
+      <h1>Бухорода лазер эпиляция</h1>
+    </div>
+  </div>
+
+  <div class="offer">
+    <div class="k">Фойдали комплекс</div>
+    <div class="z">Тўлиқ бикини + қўлтиқ ости</div>
+    <div class="price"><b>250 000 сўм</b><s>600 000 сўм</s></div>
+    <div class="note">Акция бўйича жойлар чекланган. Қулай вақтни Telegram орқали танланг.</div>
+    <a class="btn tg" href="https://t.me/Lalaser_land_bukhara?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B0%D0%B9%D0%BA%D1%83%D0%BC%21%20%D0%A2%D1%9E%D0%BB%D0%B8%D2%9B%20%D0%B1%D0%B8%D0%BA%D0%B8%D0%BD%D0%B8%20%2B%20%D2%9B%D1%9E%D0%BB%D1%82%D0%B8%D2%9B%20%D0%BE%D1%81%D1%82%D0%B8%20%D0%B0%D0%BA%D1%86%D0%B8%D1%8F%D1%81%D0%B8%20%28250%20000%20%D1%81%D1%9E%D0%BC%29%20%D0%B1%D1%9E%D0%B9%D0%B8%D1%87%D0%B0%20%D1%91%D0%B7%D0%B8%D0%BB%D0%BC%D0%BE%D2%9B%D1%87%D0%B8%D0%BC%D0%B0%D0%BD" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.6 1.2 12c-1.1-.3-1.1-1.1.2-1.6l19.1-7.4c.9-.3 1.7.2 1.4 1.3z"/></svg>
+      Telegram орқали ёзилиш
+    </a>
+  </div>
+
+  <section>
+    <h2>Нега бизни танлашади</h2>
+    <div class="list">
+      <div class="item"><i>✓</i><div><b>Soprano Titanium аппарати</b><span>Alma Lasers — энг замонавий диод лазер</span></div></div>
+      <div class="item"><i>✓</i><div><b>Тиббий маълумотга эга мутахассислар</b><span>Ҳар бир муолажани малакали мутахассис бажаради</span></div></div>
+      <div class="item"><i>✓</i><div><b>Ҳар бир мижозга индивидуал ёндашув</b><span>Тери ва соч турига қараб созланади</span></div></div>
+      <div class="item"><i>✓</i><div><b>Тоза ва шинам кабинет</b><span>Ҳар бир мижоздан кейин дезинфекция</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Бизнинг студия</h2>
+    <div class="gallery">
+      <img src="img/device.jpg" alt="Soprano Titanium аппарати" loading="lazy">
+      <img src="img/master.jpg" alt="Мутахассис" loading="lazy">
+      <img src="img/proc.jpg" alt="Муолажа" loading="lazy">
+      <img src="img/room.jpg" alt="Кабинет" loading="lazy">
+    </div>
+  </section>
+
+  <section>
+    <h2>Қандай ёзилиш мумкин</h2>
+    <div class="steps">
+      <div class="step">Telegram’да бизга ёзинг</div>
+      <div class="step">Қулай кун ва вақтни танлаймиз</div>
+      <div class="step">Муолажага келасиз — акция нархида</div>
+    </div>
+    <a class="btn tg" href="https://t.me/Lalaser_land_bukhara?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B0%D0%B9%D0%BA%D1%83%D0%BC%21%20%D0%A2%D1%9E%D0%BB%D0%B8%D2%9B%20%D0%B1%D0%B8%D0%BA%D0%B8%D0%BD%D0%B8%20%2B%20%D2%9B%D1%9E%D0%BB%D1%82%D0%B8%D2%9B%20%D0%BE%D1%81%D1%82%D0%B8%20%D0%B0%D0%BA%D1%86%D0%B8%D1%8F%D1%81%D0%B8%20%28250%20000%20%D1%81%D1%9E%D0%BC%29%20%D0%B1%D1%9E%D0%B9%D0%B8%D1%87%D0%B0%20%D1%91%D0%B7%D0%B8%D0%BB%D0%BC%D0%BE%D2%9B%D1%87%D0%B8%D0%BC%D0%B0%D0%BD" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.6 1.2 12c-1.1-.3-1.1-1.1.2-1.6l19.1-7.4c.9-.3 1.7.2 1.4 1.3z"/></svg>
+      Акция бўйича жой олиш
+    </a>
+  </section>
+
+  <section>
+    <h2>Манзил</h2>
+    <div class="item"><i>📍</i><div><b>Бухоро ш., Мустақиллик, 44А</b><span>Lalaser Land</span></div></div>
+  </section>
+
+</div>
+
+<div class="sticky cyr">
+  <a class="btn tg" href="https://t.me/Lalaser_land_bukhara?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D0%BE%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B0%D0%B9%D0%BA%D1%83%D0%BC%21%20%D0%A2%D1%9E%D0%BB%D0%B8%D2%9B%20%D0%B1%D0%B8%D0%BA%D0%B8%D0%BD%D0%B8%20%2B%20%D2%9B%D1%9E%D0%BB%D1%82%D0%B8%D2%9B%20%D0%BE%D1%81%D1%82%D0%B8%20%D0%B0%D0%BA%D1%86%D0%B8%D1%8F%D1%81%D0%B8%20%28250%20000%20%D1%81%D1%9E%D0%BC%29%20%D0%B1%D1%9E%D0%B9%D0%B8%D1%87%D0%B0%20%D1%91%D0%B7%D0%B8%D0%BB%D0%BC%D0%BE%D2%9B%D1%87%D0%B8%D0%BC%D0%B0%D0%BD" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.6 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6.1 13.6 1.2 12c-1.1-.3-1.1-1.1.2-1.6l19.1-7.4c.9-.3 1.7.2 1.4 1.3z"/></svg>
+    Telegram орқали ёзилиш
+  </a>
+</div>
+
 <script>
 // Every Telegram button = «Контакт» for Meta, so the ads can learn on people who actually go to write
 document.querySelectorAll('a.tg').forEach(function(a){
-  a.addEventListener('click', function(){ if (window.fbq) fbq('track','Contact',{content_name:'telegram'}); });
+  a.addEventListener('click', function(){ if (window.fbq) fbq('track','Contact',{content_name:'telegram_'+window.LV});fbq('trackCustom','TG_'+window.LV); });
 });
 </script>
 </body>
